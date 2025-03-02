@@ -8,7 +8,7 @@ import ProblemSolvingIcon from "./../public/assets/icons/problem-solving.svg";
 import FreelancerIcon from "./../public/assets/icons/freelance.svg";
 import BackendIcon from "./../public/assets/icons/backend.svg";
 import FullStackIcon from "./../public/assets/icons/full-stack.svg";
-
+//hi
 const navLinks = [
   {
     id: "about",
