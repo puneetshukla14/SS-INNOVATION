@@ -94,8 +94,8 @@ function Works() {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <p className={"sectionSubText"}>My work</p>
-        <h2 className={"sectionHeadText"}>Projects.</h2>
+        <p className={"sectionSubText"}>Our work</p>
+        <h2 className={"sectionHeadText"}>Products.</h2>
       </motion.div>
 
       <div className="w-full flex">
