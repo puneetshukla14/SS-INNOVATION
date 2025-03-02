@@ -87,7 +87,7 @@ function Experience() {
     <motion.section className="w-full p-8 mt-20">
       <motion.div variants={textVariant()}>
         <p className={`sectionSubText text-center`}>What I have done so far</p>
-        <h2 className={`sectionHeadText text-center`}>Surgical Procedures
+        <h2 className={`sectionHeadText text-center`}>Surgical Procedure
         </h2>
       </motion.div>
 
