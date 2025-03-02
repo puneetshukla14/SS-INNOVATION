@@ -527,18 +527,14 @@ const socials = [
 ];
 
 const heroTexts = [
-  "React/Next.js developer",
-  500,
-  "Freelancer",
-  500,
-  "Full-Stack developer",
-  500,
-  "Hideveloper",
-  500,
-  "Backend developer",
-  500,
-  "Problem solver",
-  500,
+  "SSi Mantra – Surgical Robotic System",
+  700,
+  "SSi Mudra – Endosurgical Instruments",
+  700,
+  "SSi Maya – Mixed Reality Training",
+  700,
+  "SSi Yantra – Multimedia Recording & Streaming",
+  700,
 ];
 
 export {

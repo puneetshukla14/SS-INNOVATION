@@ -59,7 +59,7 @@ function Navbar() {
                         rounded-full relative cursor-pointer"
 						>
 							<Image
-								src="/assets/avatar.png"
+								src="/assets/ssinnovationsgroup_logo.png"
 								alt="avatar"
 								fill={true}
 								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
