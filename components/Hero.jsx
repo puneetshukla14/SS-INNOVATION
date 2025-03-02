@@ -25,7 +25,7 @@ function Hero({ loading, isMobile }) {
           viewport={{ once: true, amount: 0.25 }}
         >
           <h1 className={`heroHeadText`}>
-            Hi, we're {"   "}
+          Hi, we&apos;re {"   "}
             <span className="dark:text-five text-primary">  SS INNOVATION</span>
           </h1>
           <p className={`heroSubText mt-2 tracking-wide`}>
