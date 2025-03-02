@@ -1,4 +1,4 @@
-import Image from "next/image";
+/*import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -105,3 +105,4 @@ function Tech() {
 }
 
 export default SectionWrapper(Tech, "tech");
+*/
