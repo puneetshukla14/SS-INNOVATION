@@ -1,125 +1,109 @@
-import React from "react";
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from "react-vertical-timeline-component";
+import { motion } from "framer-motion";
 
-import { projects } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
-import truncateText from "@/utils/truncate";
-import GithubLogo from "./../public/assets/icons/github.svg";
-import RocketLogo from "./../public/assets/icons/rocket.svg";
+import "react-vertical-timeline-component/style.min.css";
 
-function ProjectCard({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-  deployed_link,
-}) {
-  const CHAR_LIMIT = 280;
+import { experiences } from "../constants";
+import { SectionWrapper } from "../hoc";
+import { textVariant } from "../utils/motion";
 
+function ExperienceCard({ experience, theme }) {
   return (
-    <motion.div
-      variants={fadeIn("up", "spring", index * 0.5, 0.75)}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.25 }}
-    >
-      <Tilt
-        tiltMaxAngleX="10"
-        tiltMaxAngleY="10"
-        className="dark:bg-bgSecondaryDark bg-bgSecondaryLight p-5 rounded-2xl sm:w-[370px] w-full h-fit min-h-[590px] shadow-sm shadow-primary"
-      >
-        <div className="relative w-full h-[230px]">
-          <div className="w-full h-full object-cover rounded-2xl relative">
+    <VerticalTimelineElement
+      contentStyle={{
+        background:
+          theme !== "dark"
+            ? "linear-gradient(90deg, rgba(224,234,240,1) 0%, rgba(232,239,243,1) 50%, rgba(224,234,240,1) 100%)"
+            : "linear-gradient(90deg, rgba(33,33,52,1) 0%, rgba(39,39,61,1) 50%, rgba(33,33,52,1) 100%)",
+        color: theme !== "dark" ? "#7e8c9f" : "#e5e6e9",
+        boxShadow: "0 1px 2px 0 rgb(128, 77, 238)",
+      }}
+      contentArrowStyle={{
+        borderRight: `7px solid ${theme !== "dark" ? "#e0eaf0" : "#2b2b42"}`,
+      }}
+      style={{
+        boxShadow: "0 1px 2px 0 rgb(128, 77, 238 / 0.05)",
+      }}
+      date={experience.date}
+      iconStyle={{ background: experience.iconBg, backgroundColor: "#e0eaf0" }}
+      icon={
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="w-[60%] h-[60%] relative">
             <Image
-              src={image}
-              alt="project_image"
+              src={experience.icon}
+              alt={experience.company_name}
               fill={true}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
-              className="object-cover"
             />
           </div>
-
-          <div className="absolute inset-0 flex justify-start m-3 card-img_hover">
-            <div
-              onClick={() => window.open(deployed_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-            >
-              <RocketLogo className="w-1/2 h-1/2 mr-[2px] z-10" />
-            </div>
-          </div>
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-            >
-              <GithubLogo className="w-2/3 h-2/3 z-10" />
-            </div>
-          </div>
         </div>
+      }
+    >
+      <div>
+        <h3 className="dark:text-ctnPrimaryDark text-ctnPrimaryLight text-[24px] font-bold">
+          {experience.title}
+        </h3>
+        <p
+          className="dark:text-ctnSecondaryDark text-ctnSecondaryLight text-[16px] font-semibold"
+          style={{ margin: 0 }}
+        >
+          {experience.company_name}
+        </p>
+      </div>
 
-        <div className="mt-5">
-          <h3 className="dark:text-ctnPrimaryDark text-ctnPrimaryLight font-bold text-[24px]">
-            {name}
-          </h3>
-          <p className="mt-2 dark:text-ctnSecondaryDark text-ctnSecondaryLight text-[14px]">
-            {truncateText(description, CHAR_LIMIT)}
-          </p>
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-      </Tilt>
-    </motion.div>
+      <ul className="mt-5 list-disc ml-5 space-y-2">
+        {experience.points.map((point, index) => (
+          <li
+            key={`experience-point-${index}`}
+            className="dark:text-ctnPrimaryDark text-ctnPrimaryLight text-[14px] pl-1 tracking-wider"
+          >
+            {point}
+          </li>
+        ))}
+      </ul>
+    </VerticalTimelineElement>
   );
 }
 
-function Works() {
+function Experience() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <section className="xl:my-36 md:mx-36 p-8 " id="projects">
-      <motion.div
-        variants={textVariant()}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-      >
-        <p className={"sectionSubText"}>Our work</p>
-        <h2 className={"sectionHeadText"}>Products.</h2>
+    <motion.section className="w-full p-8 mt-20">
+      <motion.div variants={textVariant()}>
+        <p className={`sectionSubText text-center`}>What I have done so far</p>
+        <h2 className={`sectionHeadText text-center`}>Surgical Procedures
+        </h2>
       </motion.div>
 
-      <div className="w-full flex">
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 dark:text-ctnSecondaryDark text-ctnSecondaryLight text-[17px] max-w-3xl leading-[30px]"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          The SSI Projects supports a diverse range of minimally invasive robotic
-           procedures across multiple specialties. Designed for precision and reliability, 
-           each application has been rigorously validated to ensure exceptional outcomes, 
-           empowering surgeons to deliver safe and effective care in even the most complex surgical scenarios.
-        </motion.p>
+      <div className="mt-20 flex flex-col">
+        <VerticalTimeline lineColor={theme === "dark" ? "#7e8c9f" : "#8c9db1"}>
+          {experiences.map((experience, index) => (
+            <ExperienceCard
+              key={`experience-${index}`}
+              experience={experience}
+              theme={theme}
+            />
+          ))}
+        </VerticalTimeline>
       </div>
-
-      <div className="md:mt-20 mt-10 flex justify-center flex-wrap gap-7">
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
-        ))}
-      </div>
-    </section>
+    </motion.section>
   );
 }
 
-export default Works;
+export default SectionWrapper(Experience, "work");
